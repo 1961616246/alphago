@@ -76,10 +76,7 @@ class PolicyValueNet():
         self.l2_const = 1e-4  # coef of l2 penalty
         # the policy value net module
         if self.use_gpu:
-            device_ids = [0, 1]
-            self.policy_value_net = Net(board_width, board_height)
-            self.policy_value_net = torch.nn.DataParallel(self.policy_value_net, device_ids=device_ids)
-            self.policy_value_net = self.policy_value_net.cuda()
+            self.policy_value_net = Net(board_width, board_height).cuda()
         else:
             self.policy_value_net = Net(board_width, board_height)
         self.optimizer = optim.Adam(self.policy_value_net.parameters(),
